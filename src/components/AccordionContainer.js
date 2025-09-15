@@ -1,39 +1,45 @@
 import { useState } from "react";
 import AccordianItems from "./AccordionItems";
 
-const AccordianContainer = ({ card , showItem ,setItemIndex}) => {
-
+const AccordianContainer = ({ card, showItem, setItemIndex }) => {
   const itemList = card?.card?.card?.itemCards || [];
 
   const handleClick = () => {
     setItemIndex();
-  }
+  };
 
   return (
-    // main container
-    <div
-      className="w-8/12 mb-3 flex flex-col rounded-xl bg-white px-5 py-2 shadow-md cursor-pointer transform transition-transform"
-      onClick={() => handleClick()}
-
-    >
-      {/* title container */}
-      <div className="flex justify-between">
+    <div className="w-full md:w-8/12 mb-3 flex flex-col rounded-xl bg-white px-5 py-2 shadow-md">
+      {/* Header */}
+      <div
+        className="flex justify-between items-center cursor-pointer"
+        onClick={handleClick}
+      >
         <p className="font-semibold text-gray-700">
-          {card?.card?.card?.title} ({card?.card?.card?.itemCards.length})
+          {card?.card?.card?.title} ({itemList.length})
         </p>
-        <span className="text-lg">{showItem ? "⬇️" : "⬆️"}</span>
+        <span
+          className={`transform transition-transform duration-300 ${
+            showItem ? "rotate-180" : "rotate-0"
+          }`}
+        >
+          ⬇️
+        </span>
       </div>
-      {/* item container */}
-      {showItem ? (
-        <div>
-          {itemList.map((item) => (
-            <AccordianItems
-              key={item?.card?.info?.id || Math.random()}
-              element={item}
-            />
-          ))}
-        </div>
-      ) : null}
+
+      {/* Collapsible Items */}
+      <div
+        className={`overflow-hidden transition-all duration-500 ${
+          showItem ? "max-h-[1000px]" : "max-h-0"
+        }`}
+      >
+        {itemList.map((item) => (
+          <AccordianItems
+            key={item?.card?.info?.id || item?.card?.info?.name}
+            element={item}
+          />
+        ))}
+      </div>
     </div>
   );
 };
