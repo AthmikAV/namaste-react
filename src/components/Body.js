@@ -28,8 +28,15 @@ const Body = () => {
       setListOfRestaurants(slicedList);
       setFilteredListOfRestaurants(slicedList);
     } catch (error) {
-      console.error("Error fetching restaurants:", error);
-    }
+  console.error("Error fetching restaurants:", error);
+  setListOfRestaurants([
+    { card: { card: { info: { id: "1", name: "Demo Restaurant", avgRating: 4.5, promoted: false }}}}
+  ]);
+  setFilteredListOfRestaurants([
+    { card: { card: { info: { id: "1", name: "Demo Restaurant", avgRating: 4.5, promoted: false }}}}
+  ]);
+}
+
   };
 
   return listOfRestaurants.length === 0 ? (
